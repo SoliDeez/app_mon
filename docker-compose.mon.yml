@@ -31,17 +31,21 @@ services:
       - web-net2
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:v0.51.0
     container_name: cadvisor
+    privileged: true
     ports:
       - 8080:8080
     volumes:
-#      - /:/rootfs:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-#      - /sys:/sys:ro
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys:/sys:ro
 #      - /Users/$LOGNAME/.docker/run/docker.sock:/var/run/docker.sock
-#      - /var/lib/docker:/var/lib/docker:rw
+      - /var/lib/docker:/var/lib/docker:ro
 #      - /dev/disk:/dev/disk:ro
+    command:
+      - '--docker_only=true'
     networks:
       - web-net2
 

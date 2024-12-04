@@ -6,7 +6,7 @@ services:
     container_name: webserver
     restart: unless-stopped
     ports:
-      - 7777:80
+      - 80:80
     volumes:
       - wordpress:/var/www/html
 #      - ./.wp:/var/www/html
